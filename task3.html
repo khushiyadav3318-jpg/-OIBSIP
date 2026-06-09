@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#eef2f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:400px;
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:35px;
+    font-size:32px;
+    color:#222;
+}
+
+.row{
+    display:flex;
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.field{
+    flex:1;
+}
+
+label{
+    display:block;
+    color:#888;
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+input, select{
+    width:100%;
+    border:none;
+    border-bottom:2px solid #ddd;
+    padding:10px 0;
+    font-size:28px;
+    outline:none;
+    background:transparent;
+}
+
+.result{
+    margin:30px 0;
+}
+
+.result p:first-child{
+    color:#888;
+    margin-bottom:10px;
+}
+
+#output{
+    font-size:35px;
+    color:#222;
+    border-bottom:2px solid #ddd;
+    padding-bottom:10px;
+}
+
+button{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:12px;
+    background:#0d6efd;
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#0b5ed7;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Temperature Converter</h1>
+
+    <div class="row">
+        <div class="field">
+            <label>Degrees</label>
+            <input type="text" id="temp" placeholder="Enter">
+        </div>
+
+        <div class="field">
+            <label>Type</label>
+            <select id="type">
+                <option value="F">Fahrenheit</option>
+                <option value="C">Celsius</option>
+                <option value="K">Kelvin</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="result">
+        <p>Result</p>
+        <div id="output">--</div>
+    </div>
+
+    <button onclick="convertTemp()">Convert</button>
+
+    <div class="error" id="error"></div>
+</div>
+
+<script>
+function convertTemp() {
+
+    let temp = document.getElementById("temp").value;
+    let type = document.getElementById("type").value;
+    let output = document.getElementById("output");
+    let error = document.getElementById("error");
+
+    error.innerHTML = "";
+
+    if(temp === "" || isNaN(temp)){
+        error.innerHTML = "Please enter a valid number.";
+        output.innerHTML = "--";
+        return;
+    }
+
+    temp = parseFloat(temp);
+
+    let result;
+
+    if(type === "F"){
+        result = ((temp - 32) * 5/9).toFixed(2);
+        output.innerHTML = result + " °C";
+    }
+    else if(type === "C"){
+        result = ((temp * 9/5) + 32).toFixed(2);
+        output.innerHTML = result + " °F";
+    }
+    else if(type === "K"){
+        result = (temp - 273.15).toFixed(2);
+        output.innerHTML = result + " °C";
+    }
+}
+</script>
+
+</body>
+</html>
